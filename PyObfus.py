@@ -49,18 +49,30 @@ def main():
     user_input = input(Fore.WHITE + "\nPyObfus>: ")
     if "1" == user_input:
         path = input("\nPyObfus>: Please enter script path --> ")
-        system(f"pyarmor obfuscate {path}")
+        system(f'pyarmor obfuscate {path} --exact')
 
     elif "2" == user_input:
         icon = input("\nPyObfus>: Do you want to add icon to EXE? y/n >> ")
         if "Y" == icon.upper():
             path = input("\nPyObfus>: Please enter script path --> ")
             icon_path = input("\nPyObfus>: Please enter icon path (Only .ico files are supported) --> ")
-            system(f'pyinstaller --onefile --noconsole --icon {icon_path} {path}')
+            console = input("Do you want to hide the console? y/n")
+            if "Y" == console.upper():
+                system(f"pyinstaller --noconfirm --onefile --windowed --icon \"{icon_path}\" \"{path}\"")
+            elif "N" == console.upper():
+                system(f"pyinstaller --noconfirm --onefile --console --icon \"{icon_path}\" \"{path}\"")
+            else:
+                incorrect()
 
         elif "N" == icon.upper():
             path = input("\nPyObfus>: Please enter script path --> ")
-            system(f'pyinstaller.exe --noconsole --onefile {path}')
+            console = input("Do you want to hide the console? y/n")
+            if "Y" == console.upper():
+                system(f"pyinstaller --noconfirm --onefile --windowed \"{path}\"")
+            elif "N" == console.upper():
+                system(f"pyinstaller --noconfirm --onefile --console \"{path}\"")
+            else:
+                incorrect()
         else:
             incorrect()
     elif "3" == user_input:
@@ -68,11 +80,27 @@ def main():
         if "Y" == icon.upper():
             path = input("\nPyObfus>: Please enter script path --> ")
             icon_path = input("\nPyObfus>: Please enter icon path (Only .ico files are supported) --> ")
-            system(f'pyarmor pack -e --onefile --noconsole --icon {icon_path} {path}')
+            console = input("Do you want to hide the console? y/n")
+            if "Y" == console.upper():
+                system(f'pyarmor obfuscate {path} --exact')
+                system(f"pyinstaller --noconfirm --onefile --windowed --icon \"{icon_path}\" --add-data \"./dist/pytransform\" \"{path}\"")
+            elif "N" == console.upper():
+                system(f'pyarmor obfuscate {path} --exact')
+                system(f"pyinstaller --noconfirm --onefile --console --add-data ./dist/pytransform {path}")
+            else:
+                incorrect()
 
         elif "N" == icon.upper():
             path = input("\nPyObfus>: Please enter script path --> ")
-            system(f'pyarmor.exe pack -e --onefile --noconsole {path}')
+            console = input("Do you want to hide the console? y/n")
+            if "Y" == console.upper():
+                system(f'pyarmor obfuscate {path} --exact')
+                system(f"pyinstaller --noconfirm --onefile --windowed --add-data ./dist/pytransform {path}")
+            elif "N" == console.upper():
+                system(f'pyarmor obfuscate {path} --exact')
+                system(f"pyinstaller --noconfirm --onefile --console --add-data ./dist/pytransform {path}")
+            else:
+                incorrect()
 
         else:
             incorrect()
