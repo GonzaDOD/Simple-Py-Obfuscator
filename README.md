@@ -5,7 +5,7 @@
 ### > Just Windows Currently
 
 # Instalation
-#### > Open your terminal and use git clone command for cloning this repository `git clone https://github.com/GonzaDOD/Simple-Py-Obfuscator` or download the rar file [here]() and extract the file in your desktop or where you want.
+#### > Open your terminal and use git clone command for cloning this repository `git clone https://github.com/GonzaDOD/Simple-Py-Obfuscator` or download the rar file [here](https://www.mediafire.com/file/wi8tniwdvcr4b31/Simple-Py-Obfuscator.rar/file) and extract the file in your desktop or where you want.
 #### > After that you need to open command line in repository folder and execute setup.py using `python3 Setup.py`.
 ![Setup](./Resources/Setup.jpg)
 > #### setup.py will install all the dependencies such as PyArmor, PyInstaller, etc.
