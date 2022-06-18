@@ -1,14 +1,23 @@
+from importlib.resources import path
+
+
 try:
     import platform
     from time import sleep
     import pyfiglet
-    from os import system
+    from os import system, getcwd
     from sys import exit
     from colorama import Fore
 except ImportError:
 	print("\n[+] Import Error!")
 	print("\n[+] Pre Requistes were not found! Running Setup.py...")
 	system("python3 Setup.py")
+path_add_data = f"{getcwd()}\\dist\\pytransform;pytransform\\"
+path_add_data = path_add_data.replace("\\\\", "\\")
+path_dist = f"{getcwd()}\\dist\\"
+path_dist = path_dist.replace("\\\\", "\\")
+distpath = f"--distpath {getcwd()}\\Output"
+distpath = distpath.replace("\\\\", "\\")
 
 def incorrect():
     system("cls")
@@ -56,21 +65,22 @@ def main():
         if "Y" == icon.upper():
             path = input("\nPyObfus>: Please enter script path --> ")
             icon_path = input("\nPyObfus>: Please enter icon path (Only .ico files are supported) --> ")
-            console = input("Do you want to hide the console? y/n")
+            console = input("Do you want to hide the console? y/n >> ")
             if "Y" == console.upper():
-                system(f"pyinstaller --noconfirm --onefile --windowed --icon \"{icon_path}\" \"{path}\"")
+                system(f"pyinstaller --noconfirm --onefile --windowed {distpath} --icon \"{icon_path}\" {path}")
             elif "N" == console.upper():
-                system(f"pyinstaller --noconfirm --onefile --console --icon \"{icon_path}\" \"{path}\"")
+                system(f"pyinstaller --noconfirm --onefile --console {distpath} --icon \"{icon_path}\" {path}")
             else:
                 incorrect()
 
         elif "N" == icon.upper():
             path = input("\nPyObfus>: Please enter script path --> ")
-            console = input("Do you want to hide the console? y/n")
+            console = input("Do you want to hide the console? y/n >> ")
             if "Y" == console.upper():
-                system(f"pyinstaller --noconfirm --onefile --windowed \"{path}\"")
+    
+                system(f"pyinstaller --noconfirm --onefile --windowed {distpath} {path}")
             elif "N" == console.upper():
-                system(f"pyinstaller --noconfirm --onefile --console \"{path}\"")
+                system(f"pyinstaller --noconfirm --onefile --console {distpath} {path}")
             else:
                 incorrect()
         else:
@@ -80,25 +90,26 @@ def main():
         if "Y" == icon.upper():
             path = input("\nPyObfus>: Please enter script path --> ")
             icon_path = input("\nPyObfus>: Please enter icon path (Only .ico files are supported) --> ")
-            console = input("Do you want to hide the console? y/n")
+            console = input("Do you want to hide the console? y/n >> ")
             if "Y" == console.upper():
                 system(f'pyarmor obfuscate {path} --exact')
-                system(f"pyinstaller --noconfirm --onefile --windowed --icon \"{icon_path}\" --add-data \"./dist/pytransform\" \"{path}\"")
+                system(f"pyinstaller --noconfirm --onefile --windowed {distpath} --icon \"{icon_path}\" --add-data {path_add_data} {path_dist + name}")
             elif "N" == console.upper():
                 system(f'pyarmor obfuscate {path} --exact')
-                system(f"pyinstaller --noconfirm --onefile --console --add-data ./dist/pytransform {path}")
+                system(f"pyinstaller --noconfirm --onefile --console {distpath} --add-data {path_add_data} {path_dist + name}")
             else:
                 incorrect()
 
         elif "N" == icon.upper():
             path = input("\nPyObfus>: Please enter script path --> ")
-            console = input("Do you want to hide the console? y/n")
+            name = input("\nPyObfus>: Please enter the name of the script --> ")
+            console = input("Do you want to hide the console? y/n >> ")
             if "Y" == console.upper():
                 system(f'pyarmor obfuscate {path} --exact')
-                system(f"pyinstaller --noconfirm --onefile --windowed --add-data ./dist/pytransform {path}")
+                system(f"pyinstaller --noconfirm --onefile --windowed {distpath} --add-data {path_add_data} {path_dist + name}")
             elif "N" == console.upper():
                 system(f'pyarmor obfuscate {path} --exact')
-                system(f"pyinstaller --noconfirm --onefile --console --add-data ./dist/pytransform {path}")
+                system(f"pyinstaller --noconfirm --onefile --console {distpath} --add-data {path_add_data} {path_dist + name}")
             else:
                 incorrect()
 
